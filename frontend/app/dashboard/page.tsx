@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { addCity, getCities } from "@/lib/api";
 import { toggleFavorite } from "@/lib/api";
+import Swal from "sweetalert2";
 
 export default function Dashboard() {
   const [city, setCity] = useState("");
@@ -14,11 +15,23 @@ export default function Dashboard() {
   };
 
   const handleAdd = async () => {
-    if (!city) return;
-    await addCity(city);
-    setCity("");
-    fetchCities();
-  };
+  if (!city) {
+    Swal.fire("Enter city name");
+    return;
+  }
+
+  await addCity(city);
+
+  Swal.fire({
+    icon: "success",
+    title: "City Added ✅",
+    timer: 1200,
+    showConfirmButton: false,
+  });
+
+  setCity("");
+  fetchCities();
+};
 
   useEffect(() => {
     fetchCities();
@@ -52,6 +65,13 @@ export default function Dashboard() {
               <button
   onClick={async () => {
     await toggleFavorite(c._id);
+     Swal.fire({
+    icon: "success",
+    title: "Updated ⭐",
+    timer: 1000,
+    showConfirmButton: false,
+  });
+
     fetchCities();
   }}
   className="mt-2 bg-yellow-400 px-2 py-1"

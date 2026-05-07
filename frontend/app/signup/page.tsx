@@ -3,16 +3,33 @@
 import { useState } from "react";
 import { registerUser } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function Signup() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const router = useRouter();
-
+ 
   const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    await registerUser(form);
+  e.preventDefault();
+
+  const res = await registerUser(form);
+
+  if (res.message) {
+    Swal.fire({
+      icon: "success",
+      title: "Account Created 🎉",
+      text: "अब login करो",
+    });
+
     router.push("/login");
-  };
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: res.message || "Something went wrong",
+    });
+  }
+};
 
   return (
     <div className="flex h-screen items-center justify-center">
