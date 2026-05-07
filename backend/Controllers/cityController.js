@@ -48,3 +48,25 @@ exports.getCitiesWithWeather = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.toggleFavorite = async (req, res) => {
+  try {
+    const city = await City.findById(req.params.id);
+
+    if (!city) {
+      return res.status(404).json({ message: "City not found" });
+    }
+
+    // security check
+    if (city.userId.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    city.isFavorite = !city.isFavorite;
+    await city.save();
+
+    res.json(city);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
