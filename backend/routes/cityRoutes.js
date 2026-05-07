@@ -6,7 +6,7 @@ const {
   addCity,
   getCitiesWithWeather,
   toggleFavorite,
-} = require("../controllers/cityController");
+} = require("../Controllers/cityController");
 
 router.post("/", auth, addCity);
 router.get("/", auth, getCitiesWithWeather);
