@@ -48,3 +48,20 @@ export const getCities = async () => {
 
   return res.json();
 };
+
+
+export const toggleFavorite = async (id: string) => {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(
+    `http://localhost:5000/api/cities/${id}/favorite`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: token || "",
+      },
+    }
+  );
+
+  return res.json();
+};

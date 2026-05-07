@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { addCity, getCities } from "@/lib/api";
+import { toggleFavorite } from "@/lib/api";
 
 export default function Dashboard() {
   const [city, setCity] = useState("");
@@ -22,6 +23,7 @@ export default function Dashboard() {
   useEffect(() => {
     fetchCities();
   }, []);
+  const sortedCities = [...cities].sort((a, b) => b.isFavorite - a.isFavorite);
 
   return (
     <div className="p-6">
@@ -42,11 +44,21 @@ export default function Dashboard() {
 
       {/* Cities List */}
       <div className="grid grid-cols-3 gap-4">
-        {cities.map((c) => (
-          <div key={c._id} className="border p-4 rounded">
+        {sortedCities.map((c) => (
+          <div key={c._id} className={`border p-4 rounded ${c.isFavorite ? "bg-yellow-100" : ""}`}>
             <h2 className="text-xl">{c.cityName}</h2>
             <p>Temp: {c.weather.main.temp}°C</p>
             <p>{c.weather.weather[0].description}</p>
+              <button
+  onClick={async () => {
+    await toggleFavorite(c._id);
+    fetchCities();
+  }}
+  className="mt-2 bg-yellow-400 px-2 py-1"
+>
+  {c.isFavorite ? "Unfavorite" : "Favorite"}
+</button>
+        
           </div>
         ))}
       </div>
