@@ -1,4 +1,4 @@
-const BASE_URL = "https://weatherapp-tvi.onrender.com/api";
+const BASE_URL = "https://weatherapp-tsvi.onrender.com/api";
 
 export const registerUser = async (data: any) => {
   const res = await fetch(`${BASE_URL}/auth/register`, {
