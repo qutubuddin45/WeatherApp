@@ -1,3 +1,35 @@
+ Tech Stack Decision
+
+The preferred stack for this project was JavaScript/TypeScript-based full-stack development, and I chose to use:
+
+- Next.js
+- Node.js
+- Express.js
+- MongoDB
+- TypeScript
+- Tailwind CSS
+
+This stack was selected because it provides:
+
+- Fast frontend development with Next.js
+- Scalable backend architecture using Express.js
+- Flexible NoSQL database integration with MongoDB
+- Type safety using TypeScript
+- Rapid responsive UI development using Tailwind CSS
+
+Using a unified JavaScript/TypeScript ecosystem improved development speed and simplified frontend-backend integration.
+
+ Trade-Offs
+
+Some trade-offs of this stack include:
+
+- MongoDB schema flexibility can lead to less strict data validation compared to SQL databases
+- LocalStorage-based JWT storage is simpler but less secure than HTTP-only cookies
+- Tailwind utility classes can become lengthy in larger components
+
+Despite these trade-offs, the chosen stack was ideal for rapid development, scalability, and clean full-stack integration.
+
+
 Project Overview
 
 Weather App is a full-stack responsive weather dashboard application where users can:
